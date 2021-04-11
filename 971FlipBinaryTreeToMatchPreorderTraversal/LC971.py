@@ -17,6 +17,7 @@ class Solution:
                 if (self.i < len(voyage) and node.left and
                    node.left.val != voyage[self.i]):
                     self.flipped.append(node.val)
+                    # flipped it, so start from right node.
                     dfs(node.right)
                     dfs(node.left)
                 else:
