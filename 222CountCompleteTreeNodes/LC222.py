@@ -13,6 +13,7 @@ class Solution:
 # SC: O(d) = O(logN) d is a tree depth       
 
 #Binary Search
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -57,3 +58,30 @@ class Solution:
     
 #TC: O(d^2) d is tree depth
 #SC: O(1)
+
+#Recrusive  O(logN * logN)
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def countNodes(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        left_level = self.depth(root.left)
+        right_level = self.depth(root.right)
+        print(left_level, right_level)
+        if left_level == right_level:
+            # left node tree is perfect tree. right node tree is complete tree
+            return pow(2, left_level) + self.countNodes(root.right)
+        else:
+            # right node tree is perfect tree
+            return pow(2, right_level) + self.countNodes(root.left)
+    
+    def depth(self, root):
+        if not root:
+            return 0
+        return 1 + self.depth(root.left)
