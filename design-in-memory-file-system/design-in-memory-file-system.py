@@ -1,4 +1,3 @@
-from collections import defaultdict
 class Node:
     def __init__(self):
         self.child = defaultdict(Node)
@@ -7,31 +6,32 @@ class FileSystem:
 
     def __init__(self):
         self.root = Node()
-    
-    def find(self, path:str, create:bool):
+        
+    def find(self, path:str, create:bool) -> Node:
         curr = self.root
         if len(path) == 1:
             return self.root
-        #print(path.split("/"))
         for word in path.split("/")[1:]:
             if not curr.child.get(word) and not create:
                 return None
             curr = curr.child[word]
         return curr
-
+    
     def ls(self, path: str) -> List[str]:
         curr = self.find(path, False)
-        if curr.content:
+        if curr.content: # return file name
             return [path.split("/")[-1]]
-        return sorted(curr.child.keys());
+        return sorted(curr.child.keys()) # it's a directory, return files + directory
         
 
     def mkdir(self, path: str) -> None:
         self.find(path, True)
+        
 
     def addContentToFile(self, filePath: str, content: str) -> None:
         curr = self.find(filePath, True)
         curr.content += content
+        
 
     def readContentFromFile(self, filePath: str) -> str:
         curr = self.find(filePath, False)
