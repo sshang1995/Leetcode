@@ -1,12 +1,8 @@
 class Solution:
     def specialArray(self, nums: List[int]) -> int:
-        for i in range(len(nums)+1):
-            count = 0
-            for index, j in enumerate(nums):
-                if j >= i:
-                    count += 1
-                if count > i:
-                    break
-                if index == len(nums) - 1 and count == i:
-                    return i
-        return -1
+        nums = sorted(nums, reverse = True)
+        n = len(nums)
+        i = 0
+        while i < n and nums[i] > i:
+            i += 1
+        return -1 if i < len(nums) and nums[i] == i else i
