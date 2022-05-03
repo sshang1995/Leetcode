@@ -10,5 +10,6 @@ class Solution:
             else:
                 if curr_truckSize > 0:
                     res += curr_truckSize * item[1]
-                    curr_truckSize -= curr_truckSize
+                    curr_truckSize = 0 
+                    break
         return res
